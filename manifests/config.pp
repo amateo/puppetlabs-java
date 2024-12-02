@@ -3,8 +3,8 @@ class java::config ( ) {
   case $facts['os']['family'] {
     'Debian': {
       if $java::use_java_alternative != undef and $java::use_java_alternative_path != undef {
-        $command_debian = ['update-java-alternatives', '--set', $java::use_java_alternative, $java::jre_flag]
-        $unless_debian = [['test', '/etc/alternatives/java', '-ef', $java::use_java_alternative_path]]
+        $command_debian = "update-java-alternatives --set ${java::use_java_alternative} ${java::jre_flag}"
+        $unless_debian = "test /etc/alternatives/java -ef ${java::use_java_alternative_path}"
 
         exec { 'update-java-alternatives':
           path    => '/usr/bin:/usr/sbin:/bin:/sbin',
